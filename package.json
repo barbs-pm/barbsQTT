@@ -1,0 +1,20 @@
+{
+  "name": "barbsqtt",
+  "version": "1.0.0",
+  "description": "Create a chat using MQTT protocol",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "^5.0.5",
+    "paho-mqtt": "^1.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}
