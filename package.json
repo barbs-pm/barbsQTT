@@ -5,11 +5,15 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "eslint": "eslint ."
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "mqtt": "^5.0.5",
     "paho-mqtt": "^1.1.0"
   },
