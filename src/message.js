@@ -2,6 +2,7 @@ import { question } from './readline.js';
 import { getClientId, handleSession } from './mqtt.js';
 import { handleUsersStatus } from './user.js';
 import activeSessionsController from './activeSessions.js';
+import { handleActiveGroups } from './groups.js';
 
 export async function sendMessage(client) {
     const clientId = getClientId();
@@ -32,6 +33,7 @@ export function receiveMessage(client) {
         handleControllerTopic(receivedTopic, message, client); 
         handleNewMessageReceived(message);
         handleUsersStatus(receivedTopic, message, client);
+        handleActiveGroups(receivedTopic, message, client);
     });
 }
 

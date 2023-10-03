@@ -3,6 +3,7 @@ import moment from 'moment';
 import activeSessionsController from './activeSessions.js';
 import { publishOnline } from './user.js';
 import { receiveMessage } from './message.js';
+import { subscribeToGroups } from './groups.js';
 
 const url = 'mqtt://test.mosquitto.org';
 const activeSessions = activeSessionsController.get();
@@ -27,6 +28,7 @@ export async function connectToMQTT() {
     return new Promise((resolve, reject) => {
         client.on('connect', async () => {
             publishOnline(client);
+            subscribeToGroups(client);
             client.subscribe(`${clientId}_controller`);
             receiveMessage(client);
             resolve(client);
