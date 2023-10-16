@@ -71,7 +71,7 @@ function handleControllerTopic(receivedTopic, message, client) {
     if (receivedTopic === `${clientId}_controller`) {
         const recipientId = message.toString().split('_')[0];
         const topic = message.toString();
-        //console.log(`Voce recebeu uma mensagem de ${recipientId}`);
+        console.log(`Voce recebeu uma mensagem de ${recipientId}`);
         client.subscribe(topic);
         activeSessionsController.setPos(recipientId, topic);
     }

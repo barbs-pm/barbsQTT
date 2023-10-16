@@ -40,7 +40,7 @@ export async function joinGroup(client) {
     const groupToJoin = activeGroupsController.get().find(group => group.name === groupName);
     groupToJoin.users.push(clientId);
     activeGroupsController.setPos(groupName, groupToJoin);
-    client.publish(groupsTopic, JSON.stringify(groupToJoin));
+    client.publish(groupsTopic, JSON.stringify([groupToJoin]));
 }
 
 export async function createGroup(client) {
