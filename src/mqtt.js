@@ -4,6 +4,7 @@ import activeSessionsController from './activeSessions.js';
 import { publishOnline } from './user.js';
 import { receiveMessage } from './message.js';
 import { subscribeToGroups } from './groups.js';
+import activeGroupsController from './activeGroups.js';
 
 const url = 'mqtt://test.mosquitto.org';
 const activeSessions = activeSessionsController.get();
@@ -58,6 +59,11 @@ export function handleSession(recipientId, client) {
 
     const timestamp = moment().format('YYYYMMDDHH');
     sessionTopic = `${clientId}_${recipientId}_${timestamp}`;
+    const isGroup = activeGroupsController.get().find(group => group.name === recipientId);
+    if (isGroup) {
+        sessionTopic = `${recipientId}_${timestamp}`;
+    }
+
     const recipientControlTopic = `${recipientId}_controller`;
     client.publish(recipientControlTopic, sessionTopic);
     activeSessionsController.setPos(recipientId, sessionTopic);

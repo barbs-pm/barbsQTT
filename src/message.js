@@ -3,10 +3,27 @@ import { getClientId, handleSession } from './mqtt.js';
 import { handleUsersStatus } from './user.js';
 import activeSessionsController from './activeSessions.js';
 import { handleActiveGroups } from './groups.js';
+import activeGroupsController from './activeGroups.js';
 
-export async function sendMessage(client) {
+export async function sendMessageToGroup(client) {
+    const recipientId = await question('Enviar mensagem para qual grupo? ');
     const clientId = getClientId();
-    const recipientId = await question('Enviar mensagem para qual usuário? ');
+    const group = activeGroupsController.get().find(group => group.name === recipientId);
+    if (!group) {
+        await question('O grupo nao existe, aperte enter para voltar...');
+        return;
+    }
+    const isUserActive = group.users.find(user => user.id === clientId && user.active === true);
+    if (!isUserActive) {
+        await question('Voce nao pertence a este grupo, aperte enter para voltar...');
+        return;
+    }
+    await sendMessage(client, recipientId)
+}
+
+export async function sendMessage(client, groupId) {
+    const clientId = getClientId();
+    const recipientId = groupId ? groupId : await question('Enviar mensagem para qual usuário? ');
     const topic = handleSession(recipientId, client);
     client.subscribe(topic);
 
